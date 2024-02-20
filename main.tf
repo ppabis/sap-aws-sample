@@ -12,7 +12,12 @@ terraform {
   }
 }
 
-provider "aws" {
-  region = "eu-central-1"
+variable "region" {
+  description = "The AWS region to deploy resources."
+  default     = "eu-central-1"
   # You need to upload huge packages to S3 so select somewhere close
+}
+
+provider "aws" {
+  region = var.region
 }
