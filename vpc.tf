@@ -14,9 +14,10 @@ resource "aws_subnet" "public" {
     "a" : 5,
     "b" : 6
   }
-  vpc_id            = aws_vpc.SAP.id
-  cidr_block        = cidrsubnet(aws_vpc.SAP.cidr_block, 8, each.value)
-  availability_zone = "${var.region}${each.key}"
+  vpc_id                  = aws_vpc.SAP.id
+  cidr_block              = cidrsubnet(aws_vpc.SAP.cidr_block, 8, each.value)
+  availability_zone       = "${var.region}${each.key}"
+  map_public_ip_on_launch = true
 }
 
 resource "aws_route_table" "public-rtb" {
