@@ -1,10 +1,3 @@
-resource "aws_vpc" "SAP" {
-  cidr_block           = "10.65.0.0/16"
-  enable_dns_support   = true
-  enable_dns_hostnames = true
-  tags                 = { Name = "SAP-VPC" }
-}
-
 resource "aws_internet_gateway" "IGW" {
   vpc_id = aws_vpc.SAP.id
 }
@@ -18,11 +11,14 @@ resource "aws_subnet" "public" {
   cidr_block              = cidrsubnet(aws_vpc.SAP.cidr_block, 8, each.value)
   availability_zone       = "${var.region}${each.key}"
   map_public_ip_on_launch = true
+  tags = {
+    Name = "public-${each.key}-${var.VPC-name}"
+  }
 }
 
 resource "aws_route_table" "public-rtb" {
   vpc_id = aws_vpc.SAP.id
-  tags   = { Name = "public-rtb" }
+  tags   = { Name = "public-rtb-${var.VPC-name}" }
 
   route {
     cidr_block = "0.0.0.0/0"
