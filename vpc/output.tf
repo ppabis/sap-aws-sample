@@ -9,3 +9,7 @@ output "public-subnet-ids" {
 output "private-subnet-ids" {
   value = [for s in aws_subnet.private : s.id]
 }
+
+output "private-rtb-id" {
+  value = aws_route_table.private-rtb.id
+}
