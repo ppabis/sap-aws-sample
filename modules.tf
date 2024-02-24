@@ -13,3 +13,10 @@ module "NAT" {
   route_tables    = [module.vpc.private-rtb-id]
   additional_cidr = [module.vpc.vpc-cidr]
 }
+
+module "sap-security-groups" {
+  source         = "./sap-security-groups"
+  vpc_id         = module.vpc.VPC-id
+  conf_name      = "SAPConf"
+  external_cidrs = [module.vpc.vpc-cidr]
+}
