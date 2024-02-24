@@ -13,3 +13,7 @@ output "private-subnet-ids" {
 output "private-rtb-id" {
   value = aws_route_table.private-rtb.id
 }
+
+output "vpc-cidr" {
+  value = aws_vpc.SAP.cidr_block
+}
